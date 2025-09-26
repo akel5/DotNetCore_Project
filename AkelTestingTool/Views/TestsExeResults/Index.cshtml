@@ -1,0 +1,245 @@
+﻿@model IEnumerable<AkelTestingTool.Models.TestsExeResults>
+
+@{
+    ViewData["Title"] = "Index";
+    
+}
+<br />
+<img src="@Url.Content("/images/execute.png")" title="Execute"  style="width:70px; height: auto; " /> <br /><br />
+
+
+@if (User.IsInRole("DemoTester"))
+{
+    <h4><font color="FD2D00"><b>Note: This is Demo Version you don't have all the permissions.</b></font></h4>
+}
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                Test Case Number
+            </th>
+            <th>
+                Project Test
+            </th>
+            <th>
+                Test Case
+            </th>
+            <th>
+                Test Excution
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Result
+            </th>
+            <th>
+                Status
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl2)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TestCases.TestCaseNum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProjectTests.Test)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TestCases.TestCase)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TestExcutions.PPublicationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PPublicationDate)
+                </td>
+
+
+                @if (!User.IsInRole("DemoTester"))
+                {
+                    <td>
+                        <div class="md-form amber-textarea active-amber-textarea">
+                            <i class="fas fa-pencil-alt prefix"></i>
+
+                            @Html.TextAreaFor(modelItem => item.Result, new { id = "resultTextBox2" + item.TERId2, onchange = "GetAutoPostAndSave2(" + item.TERId2 + ");", @class = "md-textarea form-control", @style = "width: 200px; height: 100px; ", @rows = 5 })
+
+                            <label for="resultTextBox2"></label>
+
+                        </div>
+                    </td>
+                }
+                @if (User.IsInRole("DemoTester"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Result)
+                    </td>
+                }
+
+                @if (!User.IsInRole("DemoTester"))
+                {
+                    <td>
+                        @if (item.StatusSTTERID == 2)
+                        {
+                            <i class="fas fa-status-alt prefix"></i>
+                        }
+                        @if (item.StatusSTTERID == 3)
+                        {
+                            <i class="fas fa-status-fail-alt prefix"></i>
+                        }
+                        @if (item.StatusSTTERID == 1 || item.StatusSTTERID == 4 || item.StatusSTTERID == 5 || item.StatusSTTERID == 6)
+                        {
+                            <i class="fas fa-status-other-alt prefix"></i>
+                        }
+                        @foreach (Microsoft.AspNetCore.Mvc.Rendering.SelectListItem StatusTER in ViewBag.StatusList3 as Microsoft.AspNetCore.Mvc.Rendering.SelectList)
+                        {
+                            if (int.Parse(StatusTER.Value) == item.StatusSTTERID)
+                            {
+                                StatusTER.Selected = true;
+                            }
+                            else
+                            {
+                                StatusTER.Selected = false;
+                            }
+                        }
+                        @Html.DropDownList("statusDropDown-" + item.TERId2, ViewBag.StatusList3 as Microsoft.AspNetCore.Mvc.Rendering.SelectList, "--Select", new { onchange = "GetAutoPostAndSave(" + item.TERId2 + ");", @class = "form-control", @style = "width: auto;" })
+
+
+
+
+
+
+
+
+
+
+
+                    </td>
+
+
+                }
+                @if (User.IsInRole("DemoTester"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StatusTER.Name)
+                    </td>
+                }
+
+
+
+                @if (!User.IsInRole("DemoTester"))
+                {
+                    <td>
+
+
+                        <a asp-action="EditPic" asp-route-id="@item.TERId2">      <img class="img-rounded" src="@Url.Content("~/" + AkelTestingTool.Properties.Resources.ImgFolder + "/" + item.ImageUrl2)" width="100" height="90" alt="BugExeCreate" title="Add Screenshot" /> </a>
+
+
+
+
+
+                    </td>
+                }
+
+                @if (User.IsInRole("DemoTester"))
+                {
+                    <td>
+                        <img class="img-rounded" src="@Url.Content("~/" + AkelTestingTool.Properties.Resources.ImgFolder + "/" + item.ImageUrl2)" width="150" height="90" />
+
+                    </td>
+                }
+                <td>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                </td>
+                @if (!User.IsInRole("DemoTester"))
+                {
+
+
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.TERId2"><img src="@Url.Content("/images/det3.png")" title="Details" alt="BugExeCreate" style="width:30px; height: auto; " /></a>
+                    </td>
+                   
+                    <td>
+                        <a asp-action="BugExeCreate" asp-route-id="@item.TERId2" asp-route-id2="@ViewBag.id32" asp-route-id3="@ViewBag.id33">
+                            @if (!User.IsInRole("DemoTester"))
+                            {
+                                <img src="@Url.Content("/images/bug_red.png")" title="Assign as a Bug" alt="BugExeCreate" style="width:30px; height: auto; " />}
+                        </a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<a asp-controller="TestExcutions" asp-action="Index/@ViewBag.id172"><img src="@Url.Content("/images/back.png")" title="Back" style="width:30px; height: auto; " /> </a>
+
+<script type="text/javascript">
+    function reloadPage() {
+        location.reload();
+    }
+    function GetAutoPostAndSave(exeId) {
+
+
+        $.ajax({
+            
+                url: '/TestsExeResults/UpdateExeRStatus',
+            type: 'POST',
+            data: JSON.stringify({
+                exeRId: exeId,
+                statusId: parseInt($("#statusDropDown-" + exeId).val())
+            }),
+            contentType: "application/json",
+            success: function (data) {
+                reloadPage();
+            }
+        });
+    }
+
+
+
+
+    function GetAutoPostAndSave2(exeId2) {
+
+
+        $.ajax({
+            url: '/TestsExeResults/ResultChanged',
+            type: 'POST',
+            data: JSON.stringify({
+                exeRId2: exeId2,
+
+                result2: $("#resultTextBox2" + exeId2).val()//.val()
+
+            }),
+            contentType: "application/json",
+            success: function (data) {
+                reloadPage();
+            }
+        });
+    }
+
+
+    document.getElementById("file").onchange = function () {
+        document.getElementById("form").submit();
+    };
+
+
+    $(document).ready(function () {
+        $("#file").change(function () {
+            if ($("#file").val() != "") {
+                $("#fileinput").prop("value", $("#file").val().split('\\').pop());
+            }
+        });
+    });
+
+</script>

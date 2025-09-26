@@ -1,0 +1,225 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <UserSecretsId>aspnet-AkelTestingTool-6D8A1890-CCD9-4FEB-A712-E86205FCA746</UserSecretsId>
+    <ApplicationIcon />
+    <Win32Resource />
+    <LangVersion>7.2</LangVersion>
+    <AssemblyName>AkelTestingTool</AssemblyName>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>3</WarningLevel>
+    <Optimize>false</Optimize>
+    <DocumentationFile>C:\Users\Admin\source\repos\AkelTestingTool\AkelTestingTool\AkelTestingTool.xml</DocumentationFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20190220113721_Projects.cs" />
+    <Compile Remove="Data\Migrations\20190220113721_Projects.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190220125800_bugs22.cs" />
+    <Compile Remove="Data\Migrations\20190220125800_bugs22.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190220125814_bugs222.cs" />
+    <Compile Remove="Data\Migrations\20190220125814_bugs222.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190225114817_anotherDB.cs" />
+    <Compile Remove="Data\Migrations\20190225114817_anotherDB.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190225121422_dbb3.cs" />
+    <Compile Remove="Data\Migrations\20190225121422_dbb3.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190225131054_fieldbs.cs" />
+    <Compile Remove="Data\Migrations\20190225131054_fieldbs.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190226090053_ProjectsPidDb.cs" />
+    <Compile Remove="Data\Migrations\20190226090053_ProjectsPidDb.Designer.cs" />
+    <Compile Remove="Migrations\20190226092229_ProjectsDb.cs" />
+    <Compile Remove="Migrations\20190226092229_ProjectsDb.Designer.cs" />
+    <Compile Remove="Migrations\20190226112633_unwantedColumnCleanup2.cs" />
+    <Compile Remove="Migrations\20190226112633_unwantedColumnCleanup2.Designer.cs" />
+    <Compile Remove="Migrations\20190227114845_dbchange.cs" />
+    <Compile Remove="Migrations\20190227114845_dbchange.Designer.cs" />
+    <Compile Remove="Migrations\20190227122516_db.cs" />
+    <Compile Remove="Migrations\20190227122516_db.Designer.cs" />
+    <Compile Remove="Migrations\20190227123705_dbNew.cs" />
+    <Compile Remove="Migrations\20190227123705_dbNew.Designer.cs" />
+    <Compile Remove="Migrations\20190227124845_dbNew.cs" />
+    <Compile Remove="Migrations\20190227124845_dbNew.Designer.cs" />
+    <Compile Remove="Migrations\20190227125044_dbNew.cs" />
+    <Compile Remove="Migrations\20190227125044_dbNew.Designer.cs" />
+    <Compile Remove="Migrations\20190227130120_dbNew4.cs" />
+    <Compile Remove="Migrations\20190227130120_dbNew4.Designer.cs" />
+    <Compile Remove="Migrations\20190227131011_dbNew4.cs" />
+    <Compile Remove="Migrations\20190227131011_dbNew4.Designer.cs" />
+    <Compile Remove="Migrations\20190227131339_dbNew42.cs" />
+    <Compile Remove="Migrations\20190227131339_dbNew42.Designer.cs" />
+    <Compile Remove="Migrations\20190228065711_dbNew4222.cs" />
+    <Compile Remove="Migrations\20190228065711_dbNew4222.Designer.cs" />
+    <Compile Remove="Migrations\20190228072100_dbNN.cs" />
+    <Compile Remove="Migrations\20190228072100_dbNN.Designer.cs" />
+    <Compile Remove="Migrations\20190304083206_dv2.cs" />
+    <Compile Remove="Migrations\20190304083206_dv2.Designer.cs" />
+    <Compile Remove="Migrations\20190410072318_statuses.cs" />
+    <Compile Remove="Migrations\20190410072318_statuses.Designer.cs" />
+    <Compile Remove="Migrations\20190416062901_jsontestexctrsultTest.cs" />
+    <Compile Remove="Migrations\20190416062901_jsontestexctrsultTest.Designer.cs" />
+    <Compile Remove="Migrations\20190416063058_jsontestexctrsult.cs" />
+    <Compile Remove="Migrations\20190416063058_jsontestexctrsult.Designer.cs" />
+    <Compile Remove="Migrations\20190717122952_pervousstat.cs" />
+    <Compile Remove="Migrations\20190717122952_pervousstat.Designer.cs" />
+    <Compile Remove="Migrations\20190718105204_testresultidBugs.cs" />
+    <Compile Remove="Migrations\20190718105204_testresultidBugs.Designer.cs" />
+    <Compile Remove="Migrations\20191231091838_status2.cs" />
+    <Compile Remove="Migrations\20191231091838_status2.Designer.cs" />
+    <Compile Remove="Migrations\20191231094409_status2.cs" />
+    <Compile Remove="Migrations\20191231094409_status2.Designer.cs" />
+    <Compile Remove="Migrations\20191231095459_status2.cs" />
+    <Compile Remove="Migrations\20191231095459_status2.Designer.cs" />
+    <Compile Remove="Migrations\20191231100212_status2.cs" />
+    <Compile Remove="Migrations\20191231100212_status2.Designer.cs" />
+    <Compile Remove="Migrations\20191231100822_status2.cs" />
+    <Compile Remove="Migrations\20191231100822_status2.Designer.cs" />
+    <Compile Remove="Migrations\20191231114655_status22.cs" />
+    <Compile Remove="Migrations\20191231114655_status22.Designer.cs" />
+    <Compile Remove="Migrations\20191231115259_status222.cs" />
+    <Compile Remove="Migrations\20191231115259_status222.Designer.cs" />
+    <Compile Remove="Migrations\20200127091313_bugssummary2.cs" />
+    <Compile Remove="Migrations\20200127091313_bugssummary2.Designer.cs" />
+    <Compile Remove="Migrations\20200601105446_removeStatusTE3.cs" />
+    <Compile Remove="Migrations\20200601105446_removeStatusTE3.Designer.cs" />
+    <Compile Remove="Migrations\20200607100635_statuster.cs" />
+    <Compile Remove="Migrations\20200607100635_statuster.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\images\Bug.png" />
+    <Content Remove="wwwroot\images\Bug2.png" />
+    <Content Remove="wwwroot\images\bug3.jpg" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Abp.HangFire" Version="4.4.0" />
+    <PackageReference Include="Abp.HangFire.AspNetCore" Version="4.5.0" />
+    <PackageReference Include="Bigfoot.Web.Helpers" Version="0.1.2" />
+    <PackageReference Include="bootstrap" Version="4.3.1" />
+    <PackageReference Include="Bower" Version="1.3.11" />
+    <PackageReference Include="CaptchaGen.NetCore" Version="1.0.2" />
+    <PackageReference Include="DevExtreme.AspNet.Core" Version="18.2.7" />
+    <PackageReference Include="DevExtreme.AspNet.Data" Version="2.0.0" />
+    <PackageReference Include="DevExtreme.Web" Version="18.2.7" />
+    <PackageReference Include="Gijgo" Version="1.9.13" />
+    <PackageReference Include="HangFire.Core" Version="1.6.24" />
+    <PackageReference Include="HangFire.SqlServer" Version="1.6.24" />
+    <PackageReference Include="jQuery" Version="3.3.1" />
+    <PackageReference Include="microsoft-web-helpers" Version="2.1.20710.2" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.Web.Helpers.Mvc" Version="2.0.20710" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.HelpPage" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="2.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Html.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Localization.Routing" Version="1.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.3" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" PrivateAssets="All" />
+    <PackageReference Include="Net.Dotup.Database.EntityFrameworkCore" Version="1.4.5" />
+    <PackageReference Include="Sendgrid" Version="9.10.0" />
+    <PackageReference Include="Stripe.net" Version="37.17.0" />
+    <PackageReference Include="Suites.Microsoft.NetCore.App" Version="0.0.2" />
+    <PackageReference Include="System.Linq.Dynamic.3.5" Version="1.0.0" />
+    <PackageReference Include="System.Web.Optimization.Less" Version="1.3.4" />
+    <PackageReference Include="Value" Version="1.1.0.1" />
+    <PackageReference Include="ValueInjecter" Version="3.1.3" />
+    <PackageReference Include="WindowsAzure.Storage" Version="9.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.2" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Connected Services\" />
+    <Folder Include="Data\Migrations\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Content\" />
+    <Folder Include="Scripts\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\Bug.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\images\Bug2.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\images\bug3.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="DevExtreme.AspNet.Mvc">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 18.2\DevExtreme\System\DevExtreme\Bin\AspNet\DevExtreme.AspNet.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Omu.Awem">
+      <HintPath>..\libs\Omu.Awem.dll</HintPath>
+    </Reference>
+    <Reference Include="Omu.AwesomeMvc">
+      <HintPath>..\libs\Omu.AwesomeMvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web">
+      <HintPath>..\..\..\..\..\..\1\System.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing">
+      <HintPath>..\..\..\..\..\..\1\System.Web.Routing.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Content\images\Bug.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\images\Bug2.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\images\bug3.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

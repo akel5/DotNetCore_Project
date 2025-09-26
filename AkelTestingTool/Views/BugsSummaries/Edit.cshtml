@@ -1,0 +1,142 @@
+﻿@model AkelTestingTool.Models.BugsSummary
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit Bug</h2>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+
+        @*Id,ProjectsPId,Bug,BugSummary,TesterName,ImageUrl,StatusSTID*@
+        <form asp-action="Edit" enctype="multipart/form-data">
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <b>Bug</b>
+                <input asp-for="Bug" class="form-control" />
+                <span asp-validation-for="Bug" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BugSummary" >Bug Steps</label> <br />
+                <textarea asp-for="BugSummary"  style = "width: 500px; height: 150px; " text-wrap:normal" type="text" placeholder="Please add bug senario here"></textarea>
+                <span asp-validation-for="BugSummary" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                 <b>Image</b>
+                <img src="@Url.Content("~/" + AkelTestingTool.Properties.Resources.ImgFolder + "/" + Model.ImageUrl)" width="150" height="90" />
+
+                <input type="file" name="myfile" id="file" accept=".png,.jpg,.jpeg,.gif,.tif" class="btn btn-default" />
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" hidden>
+
+                <label asp-for="ProjectsPId" class="control-label"></label>
+                <input asp-for="ProjectsPId" class="form-control" />
+                <span asp-validation-for="ProjectsPId" class="text-danger"></span>
+
+            </div>
+
+
+
+
+            <div class="form-group">
+                <label asp-for="TesterName" class="control-label"></label>
+                <input asp-for="TesterName" class="form-control" />
+                <span asp-validation-for="TesterName" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="UserId" />
+
+
+
+
+
+
+
+
+
+            @*  <div class="form-group">
+            <label asp-for="StatusSTID" class="control-label"></label>
+            <input asp-for="StatusSTID" class="form-control" />
+            <span asp-validation-for="StatusSTID" class="text-danger"></span>
+        </div>*@
+
+
+
+
+
+
+
+
+            
+        <label asp-for="StatusSTID" class="control-label"></label>
+
+        @foreach (Microsoft.AspNetCore.Mvc.Rendering.SelectListItem status in ViewBag.StatusList as Microsoft.AspNetCore.Mvc.Rendering.SelectList)
+        {
+            if (int.Parse(status.Value) == Model.StatusSTID)
+            {
+                status.Selected = true;
+            }
+            else
+            {
+                status.Selected = false;
+            }
+        }
+
+
+        <div class="from-group">
+
+            <select asp-for="StatusSTID" asp-items="@(ViewBag.StatusList)"></select>
+
+
+            <span asp-validation-for="StatusSTID" class="text-danger"></span>
+        </div>
+
+
+
+
+            <br />
+
+
+
+
+
+
+
+
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+
+        </form>
+
+    </div>
+</div>
+
+<div>
+    @if (Model.StatusSTID == 3)
+    {
+        <a asp-action="Index2"><img src="@Url.Content("/images/back.png")" title="Back" style="width:30px; height: auto; " /></a>}
+    else
+    { <a asp-action="Index"><img src="@Url.Content("/images/back.png")" title="Back" style="width:30px; height: auto; " /></a>}
+</div>
+
+@section Scripts {
+
+   
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+

@@ -1,0 +1,78 @@
+﻿@model AkelTestingTool.Models.BugsSummary
+
+@{
+    ViewData["Title"] = "BugExeCreate";
+}
+
+<h2><img src="@Url.Content("/images/Assasbug.png")" title="Add a Test" style="width:50px; height: auto; " /> &nbsp;Assign Test Case as Bug</h2>  @*Assasbug.png*@
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+
+
+        <form asp-action="BugExeCreate" enctype="multipart/form-data">
+
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+
+                <b> Project </b>
+                <select asp-for="ProjectsPId" class="form-control" asp-items="ViewBag.ProjectsPId"></select>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Bug" class="control-label"></label>
+                <input asp-for="Bug" value=@Html.Raw("in Project Test: "+ ViewBag.projecttest+ " Test Case:"+ ViewBag.testcass + " Result was:  "+ ViewBag.bugg ) class="form-control" />
+                <span asp-validation-for="Bug" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BugSummary">Bug Steps</label> <br />
+                <textarea asp-for="BugSummary" style="width: 500px; height: 150px; " text-wrap:normal" type="text" placeholder=@Html.Raw("Enter Bug Summary with Testing numberting like this example!" + Environment.NewLine + Environment.NewLine + "1. Test Case 1"+ Environment.NewLine +"2. Test Case 2"+ Environment.NewLine +"3. Test Case 3")></textarea>
+                <span asp-validation-for="BugSummary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TesterName" class="control-label"></label>
+                <input asp-for="TesterName" value="@ViewBag.AssignedToTo" class="form-control" />
+                <span asp-validation-for="TesterName"  class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="control-label"></label>
+                <input type="file" name="myfile" id="file" accept=".png,.jpg,.jpeg,.gif,.tif" class="btn btn-default" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                <input asp-for="ImageUrl" id="fileinput" value="@ViewBag.ImageUrl" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="StatusSTID" class="control-label"></label>
+                @*  <input asp-for="StatusSTID" class="form-control" />    *@
+                <select asp-for="StatusSTID" class="form-control" asp-items="ViewBag.StatusSTID"></select>
+                <span asp-validation-for="StatusSTID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index/@ViewBag.id32/@ViewBag.id33"><img src="@Url.Content("/images/back.png")" title="Back" style="width:30px; height: auto; " /></a>
+</div>
+
+@section Scripts {
+   
+    <script>
+    $(document).ready(function () {
+            $("#file").change(function () {
+                if ($("#file").val() != "") {
+                    $("#fileinput").prop("value", $("#file").val().split('\\').pop());
+                }
+            });
+        });</script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

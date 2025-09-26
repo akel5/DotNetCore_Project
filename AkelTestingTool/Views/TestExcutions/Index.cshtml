@@ -1,0 +1,184 @@
+﻿@model IEnumerable<AkelTestingTool.Models.TestExcutions>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Test Executions</h2>
+@if (!User.IsInRole("DemoTester"))
+{
+    <p>
+        <a asp-action="Create" asp-route-id="@ViewBag.id18"><img src="@Url.Content("/images/AddIcon.png")" title="Add Test Execution" style="width:50px; height: auto; " /></a>
+    </p>
+
+
+}
+@if (User.IsInRole("DemoTester"))
+{
+    <h4><font color="FD2D00"><b>Note: This is Demo Version you don't have all the permissions.</b></font></h4>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Date
+            </th>
+
+            <th>
+                Project Test
+            </th>
+            <th>
+                Status
+
+            </th>
+            <th>
+                Assigned To
+
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PPublicationDate)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectTests.Test)
+            </td>
+
+            @if (!User.IsInRole("DemoTester"))
+            {
+                <td>
+
+
+                    @foreach (Microsoft.AspNetCore.Mvc.Rendering.SelectListItem StatusTE in ViewBag.StatusList2 as Microsoft.AspNetCore.Mvc.Rendering.SelectList)
+                    {
+                        if (int.Parse(StatusTE.Value) == item.StatusSTTEID)
+                        {
+                            StatusTE.Selected = true;
+                        }
+                        else
+                        {
+                            StatusTE.Selected = false;
+                        }
+                    }
+                    @Html.DropDownList("statusDropDown-" + item.TEId, ViewBag.StatusList2 as Microsoft.AspNetCore.Mvc.Rendering.SelectList, "--Select", new { onchange = "GetAutoPostAndSave(" + item.TEId + ");" })
+
+
+
+
+
+
+
+
+
+
+
+                </td>
+
+                //Assiged To
+
+                <td>
+
+
+                    @foreach (Microsoft.AspNetCore.Mvc.Rendering.SelectListItem AssignedTo in ViewBag.StatusListAssignedTo as Microsoft.AspNetCore.Mvc.Rendering.SelectList)
+                    {
+                        if (int.Parse(AssignedTo.Value) == item.AssignedToAssignedToID)
+                        {
+                            AssignedTo.Selected = true;
+                        }
+                        else
+                        {
+                            AssignedTo.Selected = false;
+                        }
+                    }
+                    @Html.DropDownList("assignDropDown-" + item.TEId, ViewBag.StatusListAssignedTo as Microsoft.AspNetCore.Mvc.Rendering.SelectList, "--Select", new { onchange = "GetAutoPostAndSave2(" + item.TEId + ");" })
+
+
+
+
+
+
+
+
+
+
+
+                </td>
+
+
+            }
+
+            @if (User.IsInRole("DemoTester"))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusTE.Name)
+                </td>
+            }
+
+
+
+
+            <td>
+
+
+                @if (!User.IsInRole("DemoTester"))
+                {<a asp-action="Delete" asp-route-id="@item.TEId"><img src="@Url.Content("/images/del2.png")" title="Delete" style="width:30px; height: auto; " /></a>}
+
+
+            </td>
+            <td>
+                <a asp-controller="TestsExeResults" asp-action="Index" asp-route-id="@item.TEId" asp-route-id2="@item.ProjectTests.TId"><img src="@Url.Content("/images/exe1.png")" title="Execute Test" alt="BugExeCreate" style="width:30px; height: auto; " /></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="ProjectTests" asp-action="Index/@ViewBag.id171"><img src="@Url.Content("/images/back.png")" title="Back" style="width:30px; height: auto; " /> </a>
+
+
+<script type="text/javascript">
+            function reloadPage() {
+                location.reload();
+            }
+    function GetAutoPostAndSave(exeId) {
+
+
+                $.ajax({
+                    url: '/TestExcutions/UpdateExeStatus',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        exeId: exeId,
+                        statusId: parseInt($("#statusDropDown-" + exeId).val())
+                    }),
+                    contentType: "application/json",
+                    success: function (data) {
+                        reloadPage();
+                    }
+                });
+    }
+
+
+    function GetAutoPostAndSave2(exeId) {
+
+
+        $.ajax({
+            url: '/TestExcutions/UpdateExeAssignedTo',
+            type: 'POST',
+            data: JSON.stringify({
+                exeId: exeId,
+                assignedId: parseInt($("#assignDropDown-" + exeId).val())
+            }),
+            contentType: "application/json",
+            success: function (data) {
+                reloadPage();
+            }
+        });
+    }
+
+</script>

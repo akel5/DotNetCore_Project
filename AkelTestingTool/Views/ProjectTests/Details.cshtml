@@ -1,0 +1,46 @@
+﻿@model AkelTestingTool.Models.ProjectTests
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+@if (User.IsInRole("DemoTester"))
+{
+    <h4><font color="FD2D00"><b>Note: This is Demo Version you don't have all the permissions.</b></font></h4>
+}
+<div>
+    <h4>Project Tests</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Test)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Test)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TStatus)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TStatus)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TestedBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TestedBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Projects)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Projects.PName)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (!User.IsInRole("DemoTester"))
+    {<a asp-action="Edit" asp-route-id="@Model.TId">Edit</a>} |
+<a asp-action="Index/@ViewBag.id12">Back to List</a>
+</div>

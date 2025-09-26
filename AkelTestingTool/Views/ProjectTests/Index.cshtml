@@ -1,0 +1,83 @@
+﻿@model IEnumerable<AkelTestingTool.Models.ProjectTests>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Project Tests</h2>
+@if (!User.IsInRole("DemoTester"))
+{
+    <p>
+        <a asp-action="Create" asp-route-id="@ViewBag.id10"><img src="@Url.Content("/images/AddIcon.png")" title="Add a Test" style="width:50px; height: auto; " /></a>
+
+    </p>
+}
+@if (User.IsInRole("DemoTester"))
+{
+    <h4><font color="FD2D00"><b>Note: This is Demo Version you don't have all the permissions.</b></font></h4>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Test)
+            </th>
+           
+            <th>
+                Publication Date
+            </th>
+            <th>
+                Created By
+            </th>
+            <th>
+                Project
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Test)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.PPublicationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Projects.PName)
+            </td>
+
+           
+            <td>
+                @if (!User.IsInRole("DemoTester"))
+                {
+                    <a asp-action="Delete" asp-route-id="@item.TId"><img src="@Url.Content("/images/del2.png")" title="Delete" style="width:30px; height: auto; " /></a>}
+            </td>
+                <td>
+                    @if (!User.IsInRole("DemoTester"))
+                    {<a asp-action="Edit" asp-route-id="@item.TId"><img src="@Url.Content("/images/edit4.png")" title="Edit" style="width:40px; height: auto; " /></a>} 
+                </td>
+
+                <td>
+                    
+                    <a asp-controller="TestCases" asp-action="Index" asp-route-id="@item.TId" class="sm-link sm-link_bg sm-link12"><span class="sm-link__label"> Plan Your Test</span><img src="@Url.Content("/images/edit2.png")"  style="width:30px; height: auto; " /></a>
+
+                </td>
+                <td>
+                    @if (((Dictionary<int, bool>)ViewBag.id100).GetValueOrDefault<int, bool>(item.TId)) { 
+                    <a asp-controller="TestExcutions" asp-action="Index" asp-route-id="@item.TId" class="sm-link sm-link_padding-all sm-link5"><span class="sm-link__label"><b>Test Executions</b></span> <img src="@Url.Content("/images/exe3.png")" style="width:30px; height: auto; " />  </a>
+                    }
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Projects" asp-action="Index"><img src="@Url.Content("/images/back.png")" title="Back" style="width:30px; height: auto; " /> </a>

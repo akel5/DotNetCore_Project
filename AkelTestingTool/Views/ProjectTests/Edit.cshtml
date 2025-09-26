@@ -1,0 +1,49 @@
+﻿@model AkelTestingTool.Models.ProjectTests
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit Project Test</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TId" />
+            <div class="form-group" hidden>
+
+                <label asp-for="ProjectsPId"  class="control-label"></label>
+                <select  asp-for="ProjectsPId" class="form-control" asp-items="ViewBag.ProjectsPId"></select>
+                <span asp-validation-for="ProjectsPId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Test" class="control-label"></label>
+                <input asp-for="Test" class="form-control" />
+                <span asp-validation-for="Test" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="TStatus" class="control-label"></label>
+                <input asp-for="TStatus" class="form-control" />
+                <span asp-validation-for="TStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <b>Created By </b>
+                <input asp-for="TestedBy" class="form-control" />
+                <span asp-validation-for="TestedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index/@ViewBag.id13"><img src="@Url.Content("/images/back.png")" title="Back To List" style="width:30px; height: auto; " /></a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

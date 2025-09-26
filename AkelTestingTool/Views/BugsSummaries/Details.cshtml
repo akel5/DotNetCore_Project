@@ -1,0 +1,64 @@
+﻿@model AkelTestingTool.Models.BugsSummary
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2> Bug Details</h2>
+@if (User.IsInRole("DemoTester"))
+{
+    <h4><font color="FD2D00"><b>Note: This is Demo Version you don't have all the permissions.</b></font></h4>
+}
+<div>
+   
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+           Project
+        </dt>
+        <dd>
+            <b>
+                <font color="red">
+                    @Html.DisplayFor(model => model.Projects.PName)
+                </font>
+            </b>
+        </dd>
+        <dt>
+            Bug
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Bug)
+        </dd>
+        <dt>
+          Bug Summary
+        </dt>
+        <dd>
+            @Html.TextAreaFor(model => model.BugSummary, new { @style = "width: 500px; height: 150px;" })
+        </dd>
+        <dt>
+           Tester Name
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TesterName)
+        </dd>
+
+        <dt>
+           Image
+        </dt>
+        <dd>
+            @*@Html.DisplayFor(model => model.ImageUrl)*@
+
+            <img src="@Url.Content("~/" + AkelTestingTool.Properties.Resources.ImgFolder + "/" + Model.ImageUrl)" width="600" height="360" />
+        </dd>
+
+       
+
+
+    </dl>
+</div>
+<div>
+    
+    @if (Model.StatusSTID == 3) {
+        <a asp-action="Index2"><img src="@Url.Content("/images/back.png")" title="Back To List" style="width:30px; height: auto; " /></a>}
+    else { <a asp-action="Index"><img src="@Url.Content("/images/back.png")" title="Back To List" style="width:30px; height: auto; " /></a>}
+</div>

@@ -1,0 +1,67 @@
+﻿@model IEnumerable<AkelTestingTool.Models.Projects>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>
+    Projects
+</h2>
+@if (!User.IsInRole("DemoTester"))
+{
+    <p>
+        <a asp-action="Create"><b><img src="@Url.Content("/images/AddIcon.png")" title="Add a Project" style="width:50px; height: auto; " /></b></a> <br /><br />
+    </p> @*1087815*@
+}
+@if (User.IsInRole("DemoTester"))
+{
+    <h4><font color="FD2D00"><b>Note: This is Demo Version you don't have all the permissions.</b></font></h4>
+}
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>
+                Project
+            </th>
+            <th>
+                Description
+            </th>
+            <th></th>
+            <th></th>
+            <th><img src="@Url.Content("/images/StartHere2.png")" title="Here you can start creating tests for this selected project" style="width:50px; height: auto; " /></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                       @Html.DisplayFor(modelItem => item.PName)
+                </td>
+                <td>
+                      @Html.DisplayFor(modelItem => item.PDescription)
+                </td>
+                <td>
+
+                    @if (User.IsInRole("Admins"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.PId"><img src="@Url.Content("/images/edit5.png")" title="Edit" style="width:50px; height: auto; " /></a>}
+                </td>
+                <td>
+                    @if (User.IsInRole("Admins"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.PId"><img src="@Url.Content("/images/del2.png")" title="Delete" style="width:50px; height: auto; " /></a>}
+                </td>
+                <td>
+                    <a asp-controller="ProjectTests" asp-action="Index" asp-route-id="@item.PId"><img id="torqafflogo" src="@Url.Content("/images/tests5.png")" title="Tests" style="width:50px; height: auto; " /></a>
+                </td>
+                <td>
+                    <a asp-controller="BugsSummaries" asp-action="Index" asp-route-id="@item.PId"><img src="@Url.Content("/images/bug_red.png")" title="Project Bugs" style="width:50px; height: auto; " /></a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

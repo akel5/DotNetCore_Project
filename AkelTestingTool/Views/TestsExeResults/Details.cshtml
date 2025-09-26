@@ -1,0 +1,53 @@
+﻿@model AkelTestingTool.Models.TestsExeResults
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Test Details</h2>
+@if (User.IsInRole("DemoTester"))
+{
+    <h4><font color="FD2D00"><b>Note: This is Demo Version you don't have all the permissions.</b></font></h4>
+}
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Result)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Result)
+        </dd>
+        <dt>
+            <b>Date </b>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PPublicationDate)
+        </dd>
+        <dt>
+            <b>Project Test</b>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProjectTests.Test)
+        </dd>
+        <dt>
+            <b>Test Case </b>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TestCases.TestCase)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageUrl2)
+        </dt>
+        <dd>
+
+            <img src="@Url.Content("~/" + AkelTestingTool.Properties.Resources.ImgFolder + "/" + Model.ImageUrl2)" width="600" height="360" />
+        </dd>
+    </dl>
+</div>
+<div>
+    
+<a asp-action="Index/@ViewBag.id7/@ViewBag.id8"><img src="@Url.Content("/images/back.png")" title="Back To List" style="width:30px; height: auto; " /></a>
+</div>

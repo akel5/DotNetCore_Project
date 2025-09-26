@@ -1,0 +1,73 @@
+﻿@model AkelTestingTool.Models.TestsExeResults
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit Image</h2>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditPic" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TERId2" />
+
+
+
+
+
+            <input type="hidden" asp-for="TestExcutionsTEId" class="form-control" />
+
+            <input type="hidden" asp-for="TestCasesTCId" class="form-control" />
+
+
+            <input type="hidden" asp-for="ProjectTestsTId" class="form-control" />
+
+
+
+            <input type="hidden" asp-for="Result" class="form-control" />
+
+            <input type="hidden" asp-for="Status" class="form-control" />
+
+
+            <div class="form-group">
+                <label asp-for="ImageUrl2" class="control-label"></label>
+                <img src="@Url.Content("~/" + AkelTestingTool.Properties.Resources.ImgFolder + "/" + Model.ImageUrl2)" width="150" height="150" />
+
+                <input type="file" name="myfile" id="file" accept=".png,.jpg,.jpeg,.gif,.tif" class="btn btn-default" />
+                <input asp-for="ImageUrl2" class="form-control" />
+                <span asp-validation-for="ImageUrl2" class="text-danger"></span>
+            </div>
+            
+            <input type="hidden" asp-for="StatusSTTERID" class="form-control" />
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    
+    <a asp-action="Index/@ViewBag.id5/@ViewBag.id6">Back to List</a>
+</div>
+
+
+@section Scripts {
+
+<script>tinymce.init({ selector: 'textarea' });</script>
+
+<script>
+    $(document).ready(function () {
+        $("#file").change(function () {
+            if ($("#file").val() != "") {
+                $("#fileinput").prop("value", $("#file").val().split('\\').pop());
+            }
+        });
+    });</script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

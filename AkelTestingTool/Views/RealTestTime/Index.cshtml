@@ -1,0 +1,62 @@
+﻿@using System.Web;
+@{
+    var gridId = "DinnersInlineCrudGrid";
+    var initObj = new
+    {
+        Name = DemoUtils.RndName(),
+        Date = DateTime.Now.ToShortDateString(),
+        //ChefId = Db.Chefs.First().Id,
+        //MealsIds = Db.Meals.Take(2).Select(o => o.Id).ToArray()
+    };
+}
+<div class="bar">
+    <div style="float: right;">
+        @Html.Awe().TextBox("txtSearchInl").Placeholder("search...").CssClass("searchtxt")
+    </div>
+    <button type="button" onclick="$('#@gridId').data('api').inlineCreate()" class="awe-btn mbtn">Create</button>
+
+    @Html.InlineCreateButtonForGrid(gridId, initObj, "Create with predefined values")
+</div>
+
+@Html..InitDeletePopupForGrid(gridId, "RealTestTime")
+<div><a asp-controller="RealTestTime" asp-action="GridGetItems" >Get</a>
+     <a asp-controller="RealTestTime" asp-action="Edit">Edit</a>
+     <a asp-controller="RealTestTime" asp-action="Create">Create</a> </div>
+    @(Html.Awe().Grid(gridId)
+
+
+                                                         .Mod(o => o.PageInfo().InlineEdit(Url.Action("Create", RealTestTime), Url.Action("Edit", "RealTestTime")))
+                                                      .Url(Url.Action("GridGetItems", "RealTestTime"))
+                                                      .Parent("txtSearchInl", "search")
+                                                      .Height(350)
+                                                      .Resizable()
+                                                      .Reorderable()
+                                                      .Attr("data-syncg", "dinner") // crud sync using signalr in site.js
+                                                      .Columns(
+                                                          new Column { Bind = "TERId2", Width = 75 }
+                                                          .Mod(o => o.InlineId()),
+
+                                                          new Column { Bind = "TestCaseNum" }
+                                                          //.Mod(o => o.Inline(Html.Awe().TextBox("Name"))),
+                                                          .Mod(o => o.Inline(
+                                                              Html.Awe().Autocomplete("TestCaseNum")
+                                                                .CacheKey("atcmeals") // set to share cache with all rows
+                                                                                      //.Url(Url.Action("GetItems", "MealAutocomplete"))
+                                                                .DataFunc("utils.getItems(TestCaseNum)"))),
+
+                                                          new Column { Bind = "PPublicationDate", Width = 160 }
+                                                          .Mod(o => o.Inline(Html.Awe().DatePicker("Date").ReadonlyInput().ChangeYear().ChangeMonth())),
+
+                                                          new Column { Bind = "TestCase" }
+                                                          //.Mod(o => o.Inline(Html.Awe().TextBox("Name"))),
+                                                          .Mod(o => o.Inline(
+                                                              Html.Awe().Autocomplete("TestCase")
+                                                                .CacheKey("atcmeals") // set to share cache with all rows
+                                                                                      //.Url(Url.Action("GetItems", "MealAutocomplete"))
+                                                                .DataFunc("utils.getItems(TestCase)"))),
+
+                                                          new Column { ClientFormat = ".(Result)", Header = "Result", MinWidth = 250 }
+                                                            .Mod(o => o.Inline(Html.Awe().AjaxCheckboxList("Result").Multiselect().DataFunc("utils.getItems(Result)"), "Result")),
+
+                                                          new Column { ClientFormat = ".(Status)", Header = "Status", MinWidth = 250 }
+                                                            .Mod(o => o.Inline(Html.Awe().AjaxCheckboxList("Status").Multiselect().DataFunc("utils.getItems(Status)"), "Status"))))

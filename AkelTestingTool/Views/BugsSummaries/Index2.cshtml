@@ -1,0 +1,205 @@
+﻿@model IEnumerable<AkelTestingTool.Models.BugsSummary>
+
+
+
+@{
+    ViewData["Title"] = "Index2";
+    
+}
+
+<h2>Archived Bugs</h2>
+@if (!User.IsInRole("DemoTester"))
+{
+    <p>
+        <a asp-action="Create"><img src="@Url.Content("/images/AddIcon.png")" title="Add a Bug" style="width:50px; height: auto; " /></a>
+    </p>
+}
+
+@if (User.IsInRole("DemoTester"))
+{
+    <h4><font color="FD2D00"><b>Note: This is Demo Version you can't edit, create or delete bugs, in full version you can do all the things.</b></font></h4>
+}
+<form asp-action="Index2" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by Bug/Project: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index2">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index2" asp-route-sortOrder="@ViewData["NameSortParm"]">Project</a>
+
+            </th>
+            <th>
+                Bug
+            </th>
+            <th>
+                Bug Summary
+
+            </th>
+            <th>
+                Tester Name
+            </th>
+            <th>
+                <a asp-action="Index2" asp-route-sortOrder="@ViewData["DateSortParm"]">Date</a>
+            </th>
+            <th>
+                Image
+            </th>
+            <th>
+                Status
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    <b>
+                        @Html.DisplayFor(modelItem => item.Projects.PName)
+                    </b>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bug)
+                </td>
+                <td>
+                    @* @Html.TextAreaFor(modelItem => item.BugSummary, new { @style = "width: 200px; height: 100px; " })*@
+                    <div class="md-form amber-textarea active-amber-textarea">
+                        <i class="fas fa-pencil-alt prefix"></i>
+
+                        @Html.TextAreaFor(modelItem => item.BugSummary, new { id = "resultTextBox2" + item.Id, onchange = "GetAutoPostAndSave2(" + item.Id + ");", @style = "width: 400px; height: 100px; ", @rows = 5 })
+
+                        <label for="resultTextBox2"></label>
+           
+                    </div>
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TesterName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublicationDate)
+
+                </td>
+
+                <td>
+                    <img class="img-rounded" src="@Url.Content("~/" + AkelTestingTool.Properties.Resources.ImgFolder + "/" + item.ImageUrl)" width="150" height="90" />
+                </td>
+                @if (!User.IsInRole("DemoTester"))
+                {
+                    <td>
+
+
+                        @foreach (Microsoft.AspNetCore.Mvc.Rendering.SelectListItem status in ViewBag.StatusList as Microsoft.AspNetCore.Mvc.Rendering.SelectList)
+                        {
+                            if (int.Parse(status.Value) == item.StatusSTID)
+                            {
+                                status.Selected = true;
+                            }
+                            else
+                            {
+                                status.Selected = false;
+                            }
+                        }
+                        @Html.DropDownList("statusDropDown-" + item.Id, ViewBag.StatusList as Microsoft.AspNetCore.Mvc.Rendering.SelectList, "--Select", new { onchange = "GetAutoPostAndSave(" + item.Id + ");" })
+
+
+
+
+
+
+
+
+
+
+
+                    </td>
+
+                }
+
+                @if (User.IsInRole("DemoTester"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status.Name)
+                    </td>
+                }
+
+                <td>
+                    @if (item.TestsExeResultsTERID != 0)
+                    {
+                        <a asp-controller="TestsExeResults" asp-action="Details" asp-route-id="@item.TestsExeResultsTERID">Bug Test Case</a>}
+                    @if (!User.IsInRole("DemoTester"))
+                    {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id"><img src="@Url.Content("/images/edit6.png")" title="Edit" style="width:30px; height: auto; " /></a>
+                    </td>
+                }
+                    <td>  <a asp-action="Details" asp-route-id="@item.Id"><img src="@Url.Content("/images/details6.png")" title="Details" style="width:30px; height: auto; " /></a> </td>
+                    <td>
+                        @if (!User.IsInRole("DemoTester"))
+                        {<a asp-action="Delete" asp-route-id="@item.Id"><img src="@Url.Content("/images/del2.png")" title="Delete" style="width:30px; height: auto; " /></a>}
+
+                    </td>
+                </tr>
+            }
+    </tbody>
+</table>
+<script src="../../Scripts/jquery-1.4.4.js" type="text/javascript"></script>
+
+@section Scripts {
+
+
+
+    <script type="text/javascript">
+        function reloadPage() {
+            location.reload();
+        }
+        function GetAutoPostAndSave(bugId) {
+
+
+            $.ajax({
+                url: '/BugsSummaries/UpdateBugStatus',
+                type: 'POST',
+                data: JSON.stringify({
+                    bugId: bugId,
+                    statusId: parseInt($("#statusDropDown-" + bugId).val())
+                }),
+                contentType: "application/json",
+                success: function (data) {
+                    reloadPage();
+                }
+            });
+        }
+
+        function GetAutoPostAndSave2(exeId2) {
+
+
+            $.ajax({
+                url: '/BugsSummaries/ResultChanged',
+                type: 'POST',
+                data: JSON.stringify({
+                    exeRId2: exeId2,
+
+                    result2: $("#resultTextBox2" + exeId2).val()//.val()
+
+                }),
+                contentType: "application/json",
+                success: function (data) {
+                    reloadPage();
+                }
+            });
+        }
+
+    </script>
+
+}

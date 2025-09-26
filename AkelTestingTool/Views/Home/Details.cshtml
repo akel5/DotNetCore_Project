@@ -1,0 +1,31 @@
+﻿@model AkelTestingTool.Models.BugsSummary
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+
+<div class="col-md-12 text-center">
+
+    <img src="@Url.Content("~/" + AkelTestingTool.Properties.Resources.ImgFolder + "/" + Model.ImageUrl)" width="450" />
+
+
+    <div class="caption">
+        <h3>
+            @Html.DisplayFor(modelItem => Model.Bug)
+        </h3>
+        @Html.Raw(Model.BugSummary)
+
+        <br />
+        Viewed Times   @Html.DisplayFor(modelItem => Model.Readers)
+        <br />
+        Tester : @Html.DisplayFor(modelItem => Model.TesterName)
+<br />
+        Project:        @Html.DisplayFor(modelItem => Model.Projects.PName)
+
+        <br />
+        @Html.DisplayFor(modelItem => Model.PublicationDate)
+    </div>
+
+</div>
+

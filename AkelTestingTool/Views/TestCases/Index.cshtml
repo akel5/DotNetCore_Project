@@ -1,0 +1,92 @@
+﻿
+@model IEnumerable<AkelTestingTool.Models.TestCases>
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Test Plan</h2>
+@if (!User.IsInRole("DemoTester"))
+{
+    <p>
+        <a asp-action="Create" asp-route-id="@ViewBag.id14"> <img src="@Url.Content("/images/AddIcon2.png")" title="Add a Test" style="width:20px; height: auto; " /><img src="@Url.Content("/images/testcase.png")" title="Add Test Case" style="width:40px; height: auto; " /></a>
+    </p>
+}
+@if (User.IsInRole("DemoTester"))
+{
+    <h4><font color="FD2D00"><b>Note: This is Demo Version you don't have all the permissions.</b></font></h4>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Test Case Number
+            </th>
+            <th>
+                Test Case
+            </th>
+            <th>
+                Expected Result
+            </th>
+
+            <th>
+                Project Test
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TestCaseNum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TestCase)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpectedResult)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProjectTests.Test)
+                </td>
+                <td>
+                    @if (!User.IsInRole("DemoTester"))
+                    {<a asp-action="Edit" asp-route-id="@item.TCId"><img src="@Url.Content("/images/edit4.png")" title="Edit Test Case" style="width:40px; height: auto; " /></a>}
+                </td>
+
+                <td>
+                    @if (!User.IsInRole("DemoTester"))
+                    {
+                        if (ViewBag.iftestexeex == 1)
+                        {
+
+                            @*  ViewBag.iftestexeexstr= "fghfgh";*@
+                            <script>
+                                    
+                               
+                                 { alert("Cannot be deleted!");  }
+                                
+                                </script>
+                            ViewBag.iftestexeex = 0;
+
+                        }
+
+                        <a asp-action="Delete" asp-route-id="@item.TCId"><img src="@Url.Content("/images/del2.png")" title="Delete" style="width:30px; height: auto; " /></a>}
+
+
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+
+
+<a asp-controller="ProjectTests" asp-action="Index/@ViewBag.id170"><img src="@Url.Content("/images/back.png")" title="Back" style="width:30px; height: auto; " /> </a>

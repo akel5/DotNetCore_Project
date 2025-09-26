@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=-2">
+
+    <title>@ViewData["Title"] - Akel Testing Tool</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+
+
+
+    <link href="@Url.Content("~/css/themes/wui/AwesomeMvc.css")" rel="stylesheet" type="text/css" id="aweStyle" />
+    <link href="@Url.Content("~/css/site.css")" rel="stylesheet" type="text/css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+
+
+
+    @*  <script type="text/javascript">
+            $(document).ready(function GetAutoPost () {
+                $('select:[autopostback=true],input[type=checkbox]:[autopostback=true],input[type=radio]:[autopostback=true]').live('change', function () {
+                    $(this).closest('form').submit();
+                });
+            });
+        </script> *@
+
+
+
+
+
+</head>
+<body >
+    <nav class="navbar navbar-default" style="width:100%;text-align: center; " >
+        <div class="container-fluid" >
+            <div class="navbar-header" >
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><font size="5" color="#6699ff"><b>Akel Testing Tool</b></font></a>
+            </div>
+
+
+
+
+            @*call init after utils.js and validate.js*@
+
+
+
+
+
+
+            <div class="navbar-collapse collapse" >
+                <ul class="nav navbar-nav" >
+                    <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="hhh"> 
+                            <img src="@Url.Content("/images/home.png")" title="Home" style="width:50px; height: auto; " />Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Projects" ? "active" : "")">
+                        <a asp-area="" asp-controller="Projects" asp-action="Index" class="hhh">
+                            <img src="@Url.Content("/images/projects.png")" title="Projects" style="width:50px; height: auto; " /> Projects
+                        </a>
+                    </li>
+                    <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "BugsSummaries" ? "active" : "")">
+                        <a asp-area="" asp-controller="BugsSummaries" asp-action="Index" class="hhh">
+                            <img src="@Url.Content("/images/bugslay.png")" title="Bugs" style="width:50px; height: auto; " /> Bugs
+                        </a>
+                    </li>
+
+
+
+
+                    @if (User.IsInRole("Admins"))
+                    {
+                        <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "ApplicationUsers" ? "active" : "")">
+                            <a asp-area="" asp-controller="ApplicationUsers" asp-action="Index" class="hhh">
+                                <img src="@Url.Content("/images/Users.png")" title="Users" style="width:50px; height: auto;" /> Users
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "RoleAdmin" ? "active" : "")">
+                            <a asp-area="" asp-controller="RoleAdmin" asp-action="Index" class="hhh">
+                                <img src="@Url.Content("/images/Roles.png")" title="Roles" style="width:50px; height: auto; " /> Roles
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "UserRoles" ? "active" : "")">
+                            <a asp-area="" asp-controller="UserRoles" asp-action="Index" class="hhh">
+                                <img src="@Url.Content("/images/AssUserTRole.png")" title="Assign User To Role" style="width:50px; height: auto; " /> Assign User To Role
+                            </a>
+                        </li>
+                    }
+
+                    <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "About" ? "active" : "")">
+                        <a asp-area="" asp-controller="Home" asp-action="About" class="hhh">
+                            <img src="@Url.Content("/images/About.png")" title="About" style="width:50px; height: auto; " /> About
+                        </a>
+                    </li>
+
+                    <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Contact" ? "active" : "")">
+                        <a asp-area="" asp-controller="Home" asp-action="Contact" class="hhh">
+                            <img src="@Url.Content("/images/contact.png")" title="Contact" style="width:50px; height: auto; " /> Contact
+                        </a>
+                    </li>
+
+                </ul>
+                @await Html.PartialAsync("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content" >
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2020 - Akel Testing Tool</p>
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+        <script src="https://cloud.tinymce.com/5/tinymce.min.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
